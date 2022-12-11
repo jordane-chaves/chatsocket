@@ -1,0 +1,145 @@
+main {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-width: 30rem;
+}
+
+main header {
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+main header .info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+main header .info span:nth-child(1) {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+main header .info span:nth-child(2) {
+  color: var(--secondary);
+
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+main footer {
+  background-color: var(--bg-color-secondary);
+  outline: 1px solid var(--border-color);
+
+  height: 5rem;
+
+  display: flex;
+  gap: 2rem;
+
+  padding: 1rem 2rem;
+}
+
+main footer textarea {
+  color: var(--text-color);
+
+  background-color: var(--input-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+
+  font-size: 14px;
+  letter-spacing: 1px;
+
+  outline: none;
+  overflow-y: hidden;
+  resize: none;
+
+  width: 100%;
+
+  padding: 1rem;
+}
+
+main footer textarea:focus {
+  box-shadow: var(--ring);
+}
+
+main footer textarea::placeholder {
+  color: var(--gray-400);
+}
+
+main footer button {
+  background-color: var(--brand);
+  border: none;
+  border-radius: 0.5rem;
+
+  height: 3rem;
+  width: 3rem;
+  min-height: 3rem;
+  min-width: 3rem;
+
+  outline: none;
+
+  padding: 0.75rem;
+}
+
+main footer button:focus {
+  box-shadow: var(--ring);
+}
+
+main footer button:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+
+  box-shadow: var(--ring);
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  height: 100%;
+  padding: 2rem;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.message .content {
+  border-radius: 0 1rem 1rem;
+  background-color: var(--gray-400);
+  color: var(--gray-50);
+  box-shadow: 0.1rem 0.25rem 0.5rem rgb(0 0 0 / 0.2);
+
+  width: fit-content;
+  max-width: 30rem;
+
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+  text-align: justify;
+
+  padding: 1rem;
+  margin: 0 2rem 0 0;
+}
+
+.message span {
+  color: var(--gray-400);
+  font-size: 0.75rem;
+}
+
+.right {
+  align-items: flex-end;
+}
+
+.right .content {
+  background-color: var(--secondary);
+  border-radius: 1rem 1rem 0;
+  margin: 0;
+}

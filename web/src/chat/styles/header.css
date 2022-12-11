@@ -1,0 +1,29 @@
+#app > header {
+  z-index: 1000;
+}
+
+header {
+  background-color: var(--bg-color-secondary);
+  outline: 1px solid var(--border-color);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 6rem;
+  width: 100%;
+
+  padding: 2rem;
+}
+
+header .right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+header .avatar {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+}

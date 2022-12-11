@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/chatsocket-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Chatsocket</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="content">
+        <header>
+          <img src="./assets/imgs/logo-dark.svg" alt="Chatsocket logo">
+        </header>
+
+        <main>
+          <form action="/chat/index.html">
+            <label for="name">
+              Name
+              <input type="text" name="name" id="name" placeholder="Enter your name" required>
+            </label>
+
+            <label for="email">
+              Email
+              <input type="email" name="email" id="email" placeholder="your@email.com" required>
+            </label>
+
+            <label for="avatar">
+              Avatar
+              <input type="url" name="avatar" id="avatar" placeholder="https://your.avatar.com" required>
+            </label>
+
+            <button type="submit">Enviar</button>
+          </form>
+        </main>
+
+        <footer>
+          <p>Created with 💜 by Jordane Chaves</p>
+        </footer>
+      </div>
+    </div>
+    <script type="module" src="main.ts"></script>
+  </body>
+</html>

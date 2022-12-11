@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: 'Roboto', sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  --brand: #7248BD;
+  --secondary: #00B7BD;
+
+  --gray-50: #F3F3F4;
+  --gray-100: #EDEDED;
+  --gray-200: #E6E6E6;
+  --gray-300: #BEBEBE;
+  --gray-400: #757575;
+  --gray-500: #3D3D3F;
+  --gray-600: #29292A;
+  --gray-700: #1E1E1F;
+  --gray-800: #121214;
+  --gray-900: #080810;
+
+  --ring: 0 0 0 0.1rem var(--bg-color-secondary),
+          0 0 0 0.2rem var(--brand);
+}
+
+.light,
+:root:has(#theme-button input[type="checkbox"]:not(:checked)) {
+  --bg-color: var(--gray-200);
+  --bg-color-secondary: var(--gray-50);
+
+  --bg-color-contact-hover: var(--gray-100);
+  --bg-color-contact-selected: var(--gray-200);
+
+  --border-color: var(--gray-300);
+
+  --text-color: var(--gray-900);
+  --input-bg-color: var(--gray-100);
+}
+
+.dark,
+:root:has(#theme-button input[type="checkbox"]:checked) {
+  --bg-color: var(--gray-900);
+  --bg-color-secondary: var(--gray-800);
+
+  --bg-color-contact-hover: var(--gray-700);
+  --bg-color-contact-selected: var(--gray-900);
+
+  --border-color: var(--gray-600);
+
+  --text-color: var(--gray-50);
+  --input-bg-color: var(--gray-700);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}

@@ -1,0 +1,36 @@
+#theme-button {
+  background-color: var(--gray-500);
+  border-radius: 0.78125rem;
+
+  height: 1.5rem;
+  width: 3rem;
+
+  padding: 1px;
+
+  position: relative;
+}
+
+#theme-button:hover {
+  cursor: pointer;
+}
+
+#theme-button input {
+  display: none;
+}
+
+#theme-button span {
+  background-color: white;
+  border-radius: 50%;
+
+  height: 1.375rem;
+  width: 1.375rem;
+
+  left: 0.0625rem;
+
+  position: absolute;
+  transition: 0.5s;
+}
+
+#theme-button input:checked ~ span {
+  left: 1.5625rem;
+}

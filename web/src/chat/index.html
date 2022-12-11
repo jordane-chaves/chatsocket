@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/chatsocket-icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Chatsocket</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <img src="../assets/imgs/logo-dark.svg" alt="Chatsocket Logo" id="logo">
+
+        <div class="right">
+          <label id="theme-button" for="theme">
+            <input type="checkbox" name="theme" id="theme" checked>
+            <span class="theme-slider"></span>
+          </label>
+
+          <img src="" class="avatar" id="profile_avatar" alt="Profile Avatar">
+        </div>
+      </header>
+
+      <div class="content">
+        <aside>
+          <h3>Contacts</h3>
+
+          <ul id="contacts_list">
+            <li class="contact">
+              <img src="" alt="User Avatar" class="avatar" >
+
+              <div class="info">
+                <span class="contact_name">Richard Roe</span>
+                <span class="last_message">Hello, how are you?</span>
+              </div>
+            </li>
+
+            <li class="contact">
+              <img src="" alt="User Avatar" class="avatar" >
+
+              <div class="info">
+                <span class="contact_name">John Doe</span>
+                <span class="last_message">Hello, how are you?</span>
+              </div>
+            </li>
+          </ul>
+        </aside>
+
+        <main>
+          <header id="messages_header">
+              <img class="avatar" src="" alt="">
+
+            <div class="info">
+              <span class="contact_name">John Doe</span>
+              <span class="description">Typing...</span>
+            </div>
+          </header>
+
+          <div id="messages">
+            <div class="message right">
+              <div class="content">
+                <p>Hello, John Doe!</p>
+              </div>
+
+              <span>18:05</span>
+            </div>
+
+            <div class="message">
+              <div class="content">
+                <p>Hello, how are you?</p>
+              </div>
+
+              <span>18:06</span>
+            </div>
+
+            <div class="message">
+              <div class="content">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam nihil cumque nam ad enim explicabo id eum? Ullam modi fugit accusamus nostrum aperiam facere, aut, atque, harum blanditiis iusto ex.</p>
+              </div>
+
+              <span>18:07</span>
+            </div>
+          </div>
+
+          <footer>
+            <textarea type="text" placeholder="Write a message..."></textarea>
+            <button type="submit">
+              <img src="../assets/imgs/paper-plane.svg">
+            </button>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <script type="module" src="./chat.ts"></script>
+  </body>
+</html>
