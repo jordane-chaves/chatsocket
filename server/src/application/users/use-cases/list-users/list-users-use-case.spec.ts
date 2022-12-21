@@ -1,3 +1,4 @@
+import { makeUser } from "../../../../../test/factories/user-factory";
 import { InMemoryUsersRepository } from "../../../../../test/repositories/in-memory-users-repository";
 import { User } from "../../entities/user";
 import { ListUsersUseCase } from "./list-users-use-case";
@@ -14,22 +15,14 @@ describe('List Users', () => {
   });
 
   it('should be able to list all users', async () => {
-    await inMemoryUsersRepository.create(new User({
-      name: 'User 1',
-      avatar: 'avatar-user-1',
-      email: 'user-1@test.com',
-      socketId: 'example-socket-id',
-    }));
-
-    await inMemoryUsersRepository.create(new User({
-      name: 'User 2',
-      avatar: 'avatar-user-2',
-      email: 'user-2@test.com',
-      socketId: 'example-socket-id',
-    }));
+    await inMemoryUsersRepository.create(makeUser());
+    await inMemoryUsersRepository.create(makeUser());
+    await inMemoryUsersRepository.create(makeUser());
+    await inMemoryUsersRepository.create(makeUser());
+    await inMemoryUsersRepository.create(makeUser());
 
     const { users } = await listUsersUseCase.execute();
 
-    expect(users).toHaveLength(2);
+    expect(users).toHaveLength(5);
   });
 });
