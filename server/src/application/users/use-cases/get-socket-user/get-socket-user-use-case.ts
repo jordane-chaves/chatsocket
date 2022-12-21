@@ -1,18 +1,20 @@
 import { User } from "../../entities/user";
 import { UsersRepository } from "../../repositories/users-repository";
 
-interface FindUserRequest {
+interface GetSocketUserRequest {
   socketId: string;
 }
 
-interface FindUserResponse {
+interface GetSocketUserResponse {
   user: User;
 }
 
-export class FindUserUseCase {
+export class GetSocketUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({ socketId }: FindUserRequest): Promise<FindUserResponse> {
+  async execute({
+    socketId,
+  }: GetSocketUserRequest): Promise<GetSocketUserResponse> {
     const user = await this.usersRepository.findBySocketId(socketId);
 
     return { user };
