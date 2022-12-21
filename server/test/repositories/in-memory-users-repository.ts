@@ -18,6 +18,10 @@ export class InMemoryUsersRepository implements UsersRepository {
     return this.users.find(user => user.email === email);
   }
 
+  async findBySocketId(socketId: string): Promise<User> {
+    return this.users.find(user => user.socketId === socketId);
+  }
+
   async findMany(): Promise<User[]> {
     return this.users;
   }
