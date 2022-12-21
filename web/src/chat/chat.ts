@@ -7,6 +7,13 @@ import './styles/theme-button.css';
 
 import '../utils/themeSwitcher';
 import { setFakerData } from './faker-data';
+import { io } from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
+
+socket.on('start', (data) => {
+  console.log(data);
+});
 
 window.onload = () => {
   const params = new URLSearchParams(window.location.search);
