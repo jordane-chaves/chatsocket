@@ -15,12 +15,9 @@ interface CreateUserResponse {
 export class CreateUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({
-    avatar,
-    email,
-    name,
-    socketId
-  }: CreateUserRequest): Promise<CreateUserResponse> {
+  async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
+    const { avatar, email, name, socketId } = request;
+
     const userAlreadyExists = await this.usersRepository.findByEmail(email);
 
     let user = null;

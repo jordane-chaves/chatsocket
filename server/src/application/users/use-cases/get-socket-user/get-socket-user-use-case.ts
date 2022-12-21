@@ -12,9 +12,9 @@ interface GetSocketUserResponse {
 export class GetSocketUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({
-    socketId,
-  }: GetSocketUserRequest): Promise<GetSocketUserResponse> {
+  async execute(request: GetSocketUserRequest): Promise<GetSocketUserResponse> {
+    const { socketId } = request;
+
     const user = await this.usersRepository.findBySocketId(socketId);
 
     return { user };

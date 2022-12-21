@@ -1,8 +1,6 @@
 import { User } from "../../entities/user";
 import { UsersRepository } from "../../repositories/users-repository";
 
-// interface ListUsersRequest {}
-
 interface ListUsersResponse {
   users: User[];
 }
