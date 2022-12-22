@@ -1,5 +1,7 @@
 import { User } from "@application/users/entities/user";
 import { UsersRepository } from "@application/users/repositories/users-repository";
+import { injectable } from "tsyringe";
+import { inject } from "tsyringe/dist/typings/decorators";
 
 interface CreateUserRequest {
   name: string;
@@ -12,8 +14,12 @@ interface CreateUserResponse {
   user: User;
 }
 
+@injectable()
 export class CreateUserUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: UsersRepository
+  ) {}
 
   async execute(request: CreateUserRequest): Promise<CreateUserResponse> {
     const { avatar, email, name, socketId } = request;

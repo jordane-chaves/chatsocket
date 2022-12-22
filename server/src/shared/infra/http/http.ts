@@ -1,9 +1,11 @@
 import 'dotenv/config';
+import 'reflect-metadata';
 
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
+import '@shared/container';
 import '../database/mongo';
 
 const app = express();
