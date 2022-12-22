@@ -1,5 +1,5 @@
-import { InMemoryMessagesRepository } from "../../../../../test/repositories/in-memory-messages-repository";
-import { Message } from "../../entities/message";
+import { Message } from "@application/messages/entities/message";
+import { InMemoryMessagesRepository } from "@test/repositories/in-memory-messages-repository";
 import { SendMessageUseCase } from "./send-message-use-case";
 
 let sendMessageUseCase: SendMessageUseCase;

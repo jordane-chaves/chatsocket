@@ -1,4 +1,4 @@
-import { Room, RoomProps } from "../../src/application/rooms/entities/room";
+import { Room, RoomProps } from "@application/rooms/entities/room";
 
 type Override = Partial<RoomProps>;
 

@@ -1,4 +1,4 @@
-import { Message, MessageProps } from "../../src/application/messages/entities/message";
+import { Message, MessageProps } from "@application/messages/entities/message";
 
 type Override = Partial<MessageProps>;
 

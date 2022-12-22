@@ -1,5 +1,5 @@
-import { Room } from "../../src/application/rooms/entities/room";
-import { FindRoomData, RoomsRepository } from "../../src/application/rooms/repositories/rooms-repository";
+import { Room } from "@application/rooms/entities/room";
+import { RoomsRepository, FindRoomData } from "@application/rooms/repositories/rooms-repository";
 
 export class InMemoryRoomsRepository implements RoomsRepository {
   public rooms: Room[] = [];

@@ -1,5 +1,6 @@
-import { makeMessage } from "../../../../../test/factories/message-factory";
-import { InMemoryMessagesRepository } from "../../../../../test/repositories/in-memory-messages-repository";
+
+import { makeMessage } from "@test/factories/message-factory";
+import { InMemoryMessagesRepository } from "@test/repositories/in-memory-messages-repository";
 import { ListRoomMessagesUseCase } from "./list-room-messages-use-case";
 
 let listRoomMessagesUseCase: ListRoomMessagesUseCase;

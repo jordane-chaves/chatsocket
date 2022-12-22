@@ -1,5 +1,5 @@
-import { Message } from "../../src/application/messages/entities/message";
-import { MessagesRepository } from "../../src/application/messages/repositories/messages-repository";
+import { Message } from "@application/messages/entities/message";
+import { MessagesRepository } from "@application/messages/repositories/messages-repository";
 
 export class InMemoryMessagesRepository implements MessagesRepository {
   public messages: Message[] = [];

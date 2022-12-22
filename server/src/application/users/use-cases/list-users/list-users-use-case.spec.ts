@@ -1,6 +1,5 @@
-import { makeUser } from "../../../../../test/factories/user-factory";
-import { InMemoryUsersRepository } from "../../../../../test/repositories/in-memory-users-repository";
-import { User } from "../../entities/user";
+import { makeUser } from "@test/factories/user-factory";
+import { InMemoryUsersRepository } from "@test/repositories/in-memory-users-repository";
 import { ListUsersUseCase } from "./list-users-use-case";
 
 let listUsersUseCase: ListUsersUseCase;

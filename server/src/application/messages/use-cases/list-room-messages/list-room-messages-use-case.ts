@@ -1,5 +1,5 @@
-import { Message } from "../../entities/message";
-import { MessagesRepository } from "../../repositories/messages-repository";
+import { Message } from "@application/messages/entities/message";
+import { MessagesRepository } from "@application/messages/repositories/messages-repository";
 
 interface ListRoomMessagesRequest {
   roomId: string;
@@ -12,7 +12,9 @@ interface ListRoomMessagesResponse {
 export class ListRoomMessagesUseCase {
   constructor(private messagesRepository: MessagesRepository) {}
 
-  async execute(request: ListRoomMessagesRequest): Promise<ListRoomMessagesResponse> {
+  async execute(
+    request: ListRoomMessagesRequest
+  ): Promise<ListRoomMessagesResponse> {
     const { roomId } = request;
 
     const messages = await this.messagesRepository.findManyByRoomId(roomId);

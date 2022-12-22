@@ -1,5 +1,5 @@
-import { User } from "../../src/application/users/entities/user";
-import { UsersRepository } from "../../src/application/users/repositories/users-repository";
+import { User } from "@application/users/entities/user";
+import { UsersRepository } from "@application/users/repositories/users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
   public users: User[] = [];

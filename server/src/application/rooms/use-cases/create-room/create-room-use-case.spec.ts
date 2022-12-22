@@ -1,5 +1,5 @@
-import { makeRoom } from "../../../../../test/factories/room-factory";
-import { InMemoryRoomsRepository } from "../../../../../test/repositories/in-memory-rooms-repository";
+import { makeRoom } from "@test/factories/room-factory";
+import { InMemoryRoomsRepository } from "@test/repositories/in-memory-rooms-repository";
 import { CreateRoomUseCase } from "./create-room-use-case";
 
 let createRoomUseCase: CreateRoomUseCase;

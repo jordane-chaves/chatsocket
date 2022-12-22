@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { Replace } from '../../../core/Replace';
+
+import { Replace } from '@core/Replace';
 
 export interface MessageProps {
   from: string;

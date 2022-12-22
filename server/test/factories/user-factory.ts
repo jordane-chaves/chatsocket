@@ -1,4 +1,4 @@
-import { User, UserProps } from "../../src/application/users/entities/user";
+import { UserProps, User } from "@application/users/entities/user";
 
 type Override = Partial<UserProps>;
 

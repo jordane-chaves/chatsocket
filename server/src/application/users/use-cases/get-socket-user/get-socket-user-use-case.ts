@@ -1,5 +1,5 @@
-import { User } from "../../entities/user";
-import { UsersRepository } from "../../repositories/users-repository";
+import { User } from "@application/users/entities/user";
+import { UsersRepository } from "@application/users/repositories/users-repository";
 
 interface GetSocketUserRequest {
   socketId: string;

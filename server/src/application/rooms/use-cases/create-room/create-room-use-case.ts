@@ -1,5 +1,5 @@
-import { Room } from "../../entities/room";
-import { RoomsRepository } from "../../repositories/rooms-repository";
+import { Room } from "@application/rooms/entities/room";
+import { RoomsRepository } from "@application/rooms/repositories/rooms-repository";
 
 interface CreateRoomRequest {
   usersIds: string[];

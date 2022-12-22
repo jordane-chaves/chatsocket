@@ -1,5 +1,5 @@
-import { Message } from "../../entities/message";
-import { MessagesRepository } from "../../repositories/messages-repository";
+import { Message } from "@application/messages/entities/message";
+import { MessagesRepository } from "@application/messages/repositories/messages-repository";
 
 interface SendMessageRequest {
   from: string;

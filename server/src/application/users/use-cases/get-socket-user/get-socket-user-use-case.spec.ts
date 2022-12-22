@@ -1,5 +1,5 @@
-import { makeUser } from "../../../../../test/factories/user-factory";
-import { InMemoryUsersRepository } from "../../../../../test/repositories/in-memory-users-repository";
+import { makeUser } from "@test/factories/user-factory";
+import { InMemoryUsersRepository } from "@test/repositories/in-memory-users-repository";
 import { GetSocketUserUseCase } from "./get-socket-user-use-case";
 
 let getSocketUserUseCase: GetSocketUserUseCase;
