@@ -9,6 +9,14 @@ import '../utils/themeSwitcher';
 import { setFakerData } from './faker-data';
 import { io } from 'socket.io-client';
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  socketId: string;
+}
+
 const socket = io('http://localhost:3000');
 
 window.onload = () => {
@@ -27,9 +35,37 @@ window.onload = () => {
     return;
   }
 
-  setUserLoggedInfo({ avatar })
+  setUserLoggedInfo({ name, avatar })
 
   socket.emit('start', { name, email, avatar });
+
+  socket.on('users:new', async (user: User) => {
+    const userExistsInContactList = document.getElementById(`user_${user.id}`);
+
+    if (!userExistsInContactList) {
+      addToContactList({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+        socketId: user.socketId
+      });
+    }
+  });
+
+  socket.emit('users:get', async (users: User[]) => {
+    users.map(user => {
+      if (user.email !== email) {
+        addToContactList({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+          socketId: user.socketId
+        });
+      }
+    });
+  });
 };
 
 document.getElementById('contacts_list')!.addEventListener('click', (event) => {
@@ -45,6 +81,7 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
 });
 
 interface UserLoggedInfoData {
+  name: string;
   avatar: string;
 }
 
@@ -52,4 +89,24 @@ function setUserLoggedInfo(user: UserLoggedInfoData) {
   const userAvatar = document.getElementById('profile_avatar')!;
 
   userAvatar.setAttribute('src', user.avatar);
+  userAvatar.setAttribute('title', user.name);
+}
+
+function addToContactList(user: User) {
+  const contactsList = document.getElementById('contacts_list')!;
+
+  contactsList.innerHTML += `
+  <li
+    class="contact"
+    id="user_${user.id}"
+    data-id-user="${user.id}"
+  >
+    <img src="${user.avatar}" alt="User Avatar" class="avatar" >
+
+    <div class="info">
+      <span class="contact_name">${user.name}</span>
+      <!-- <span class="last_message">Hello, how are you?</span> -->
+    </div>
+  </li>
+  `;
 }

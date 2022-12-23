@@ -1,7 +1,9 @@
-import { CreateUserUseCase } from '@application/users/use-cases/create-user/create-user-use-case';
 import { container } from 'tsyringe';
 
+import { CreateUserUseCase } from '@application/users/use-cases/create-user/create-user-use-case';
+import { ListUsersUseCase } from '@application/users/use-cases/list-users/list-users-use-case';
 import { io } from "../http/http";
+import { UserViewModel } from './view-models/user-view-model';
 
 interface StartRequest {
   name: string;
@@ -15,11 +17,23 @@ io.on('connect', (socket) => {
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
-    const user = await createUserUseCase.execute({
+    const { user } = await createUserUseCase.execute({
       name,
       email,
       avatar,
       socketId: socket.id,
     });
+
+    socket.broadcast.emit('users:new', UserViewModel.toSocket(user));
+  });
+
+  socket.on('users:get', async (callback: Function) => {
+    const listUsersUseCase = container.resolve(ListUsersUseCase);
+
+    const { users } = await listUsersUseCase.execute();
+
+    const usersList = users.map(UserViewModel.toSocket);
+
+    callback(usersList);
   });
 });

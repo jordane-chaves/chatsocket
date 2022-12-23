@@ -1,6 +1,6 @@
 import { User } from "@application/users/entities/user";
 import { UsersRepository } from "@application/users/repositories/users-repository";
-import { inject, injectable } from "tsyringe/dist/typings/decorators";
+import { inject, injectable } from "tsyringe";
 
 interface ListUsersResponse {
   users: User[];
