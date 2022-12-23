@@ -24,7 +24,10 @@ window.onload = () => {
     } else {
       window.location.replace('/');
     }
+    return;
   }
+
+  setUserLoggedInfo({ avatar })
 
   socket.emit('start', { name, email, avatar });
 };
@@ -40,3 +43,13 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
     clickedElement.classList.add('selected');
   }
 });
+
+interface UserLoggedInfoData {
+  avatar: string;
+}
+
+function setUserLoggedInfo(user: UserLoggedInfoData) {
+  const userAvatar = document.getElementById('profile_avatar')!;
+
+  userAvatar.setAttribute('src', user.avatar);
+}
