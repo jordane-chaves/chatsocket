@@ -11,10 +11,6 @@ import { io } from 'socket.io-client';
 
 const socket = io('http://localhost:3000');
 
-socket.on('start', (data) => {
-  console.log(data);
-});
-
 window.onload = () => {
   const params = new URLSearchParams(window.location.search);
 
@@ -29,6 +25,8 @@ window.onload = () => {
       window.location.replace('/');
     }
   }
+
+  socket.emit('start', { name, email, avatar });
 };
 
 document.getElementById('contacts_list')!.addEventListener('click', (event) => {

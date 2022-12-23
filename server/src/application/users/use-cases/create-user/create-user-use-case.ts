@@ -1,7 +1,7 @@
+import { inject, injectable } from "tsyringe";
+
 import { User } from "@application/users/entities/user";
 import { UsersRepository } from "@application/users/repositories/users-repository";
-import { injectable } from "tsyringe";
-import { inject } from "tsyringe/dist/typings/decorators";
 
 interface CreateUserRequest {
   name: string;

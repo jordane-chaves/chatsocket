@@ -4,7 +4,6 @@ import { User as RawUser } from '../schemas/User';
 export class MongoUserMapper {
   static toMongo(user: User) {
     return {
-      _id: user.id,
       name: user.name,
       email: user.email,
       avatar: user.avatar,
@@ -20,7 +19,7 @@ export class MongoUserMapper {
         avatar: raw.avatar,
         socketId: raw.socketId,
       },
-      raw._id
+      String(raw._id)
     );
   }
 }
