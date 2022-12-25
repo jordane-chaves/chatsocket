@@ -27,7 +27,7 @@ io.on('connect', (socket) => {
     socket.broadcast.emit('users:new', UserViewModel.toSocket(user));
   });
 
-  socket.on('users:get', async (callback: Function) => {
+  socket.on('users:list', async (callback: Function) => {
     const listUsersUseCase = container.resolve(ListUsersUseCase);
 
     const { users } = await listUsersUseCase.execute();

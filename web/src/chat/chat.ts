@@ -53,7 +53,7 @@ window.onload = () => {
     }
   });
 
-  socket.emit('users:get', async (users: User[]) => {
+  socket.emit('users:list', async (users: User[]) => {
     users.map(user => {
       if (user.email !== email) {
         addToContactList({
@@ -105,7 +105,7 @@ function addToContactList(user: User) {
 
     <div class="info">
       <span class="contact_name">${user.name}</span>
-      <!-- <span class="last_message">Hello, how are you?</span> -->
+      <span class="last_message"></span>
     </div>
   </li>
   `;
