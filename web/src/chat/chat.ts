@@ -9,12 +9,19 @@ import '../utils/themeSwitcher';
 import { setFakerData } from './faker-data';
 import { io } from 'socket.io-client';
 
+let roomId: string = '';
+
 interface User {
   id: string;
   name: string;
   email: string;
   avatar: string;
   socketId: string;
+}
+
+interface Room {
+  id: string;
+  usersIds: string[];
 }
 
 const socket = io('http://localhost:3000');
@@ -77,6 +84,12 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
 
   if (clickedElement && clickedElement.matches('li.contact')) {
     clickedElement.classList.add('selected');
+
+    const userId = clickedElement.getAttribute('data-id-user');
+
+    socket.emit('chat:start', { userId }, async (room: Room) => {
+      roomId = room.id;
+    });
   }
 });
 
