@@ -7,5 +7,5 @@ export interface FindRoomData {
 
 export interface RoomsRepository {
   create(room: Room): Promise<void>;
-  find(data: FindRoomData): Promise<Room>;
+  find(data: FindRoomData): Promise<Room | null>;
 }
