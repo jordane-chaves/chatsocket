@@ -18,4 +18,11 @@ describe('Create Room', () => {
 
     expect(inMemoryRoomsRepository.rooms).toHaveLength(1);
   });
+
+  it('should not be able to create a new room with the same users', async () => {
+    await createRoomUseCase.execute(makeRoom());
+    await createRoomUseCase.execute(makeRoom());
+
+    expect(inMemoryRoomsRepository.rooms).toHaveLength(1);
+  });
 });

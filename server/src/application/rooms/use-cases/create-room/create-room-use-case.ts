@@ -20,6 +20,12 @@ export class CreateRoomUseCase {
   async execute(request: CreateRoomRequest): Promise<CreateRoomResponse> {
     const { usersIds } = request;
 
+    const roomExists = await this.roomsRepository.find({ usersIds });
+
+    if (roomExists) {
+      return { room: roomExists };
+    }
+
     const room = new Room({ usersIds });
 
     await this.roomsRepository.create(room);
