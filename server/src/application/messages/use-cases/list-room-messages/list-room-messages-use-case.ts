@@ -1,5 +1,6 @@
 import { Message } from "@application/messages/entities/message";
 import { MessagesRepository } from "@application/messages/repositories/messages-repository";
+import { inject, injectable } from "tsyringe";
 
 interface ListRoomMessagesRequest {
   roomId: string;
@@ -9,8 +10,12 @@ interface ListRoomMessagesResponse {
   messages: Message[];
 }
 
+@injectable()
 export class ListRoomMessagesUseCase {
-  constructor(private messagesRepository: MessagesRepository) {}
+  constructor(
+    @inject('MessagesRepository')
+    private messagesRepository: MessagesRepository
+  ) {}
 
   async execute(
     request: ListRoomMessagesRequest

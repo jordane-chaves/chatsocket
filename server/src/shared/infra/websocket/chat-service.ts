@@ -7,6 +7,10 @@ import { UserViewModel } from './view-models/user-view-model';
 import { CreateRoomUseCase } from '@application/rooms/use-cases/create-room/create-room-use-case';
 import { GetSocketUserUseCase } from '@application/users/use-cases/get-socket-user/get-socket-user-use-case';
 import { RoomViewModel } from './view-models/room-view-model';
+import { SendMessageUseCase } from '@application/messages/use-cases/send-message/send-message-use-case';
+import { MessageViewModel } from './view-models/message-view-model';
+import { GetRoomUseCase } from '@application/rooms/use-cases/get-room/get-room-use-case';
+import { ListRoomMessagesUseCase } from '@application/messages/use-cases/list-room-messages/list-room-messages-use-case';
 
 interface StartRequest {
   name: string;
@@ -16,6 +20,11 @@ interface StartRequest {
 
 interface ChatStartRequest {
   userId: string;
+}
+
+interface MessageSendRequest {
+  message: string;
+  roomId: string;
 }
 
 io.on('connect', (socket) => {
@@ -47,6 +56,7 @@ io.on('connect', (socket) => {
   socket.on('chat:start', async (data: ChatStartRequest, callback) => {
     const getSocketUserUseCase = container.resolve(GetSocketUserUseCase);
     const createRoomUseCase = container.resolve(CreateRoomUseCase);
+    const listRoomMessagesUseCase = container.resolve(ListRoomMessagesUseCase);
 
     const { user: userLogged } = await getSocketUserUseCase.execute({
       socketId: socket.id
@@ -56,6 +66,43 @@ io.on('connect', (socket) => {
       usersIds: [ data.userId, userLogged.id ],
     });
 
-    callback(RoomViewModel.toSocket(room));
+    socket.join(room.id);
+
+    const { messages } = await listRoomMessagesUseCase.execute({ roomId: room.id });
+
+    callback({
+      room: RoomViewModel.toSocket(room),
+      messages: messages.map(data => {
+        const message = MessageViewModel.toSocket(data.message);
+        const user = UserViewModel.toSocket(data.user);
+
+        return { message, user };
+      }),
+    });
+  });
+
+  socket.on('message:send', async (data: MessageSendRequest) => {
+    const { message: text, roomId } = data;
+
+    const getSocketUserUseCase = container.resolve(GetSocketUserUseCase);
+    const getRoomUseCase = container.resolve(GetRoomUseCase);
+    const sendMessageUseCase = container.resolve(SendMessageUseCase);
+
+    const { user } = await getSocketUserUseCase.execute({
+      socketId: socket.id
+    });
+
+    const { room } = await getRoomUseCase.execute({ id: roomId });
+
+    const { message } = await sendMessageUseCase.execute({
+      from: user.id,
+      roomId: room.id,
+      text,
+    });
+
+    io.to(room.id).emit('message:send', {
+      message: MessageViewModel.toSocket(message),
+      user: UserViewModel.toSocket(user),
+    });
   });
 });

@@ -13,18 +13,19 @@ export class MongoRoomsRepository implements RoomsRepository {
   }
 
   async find({ id, usersIds }: FindRoomData): Promise<Room | null> {
-    const usersObjectIds = usersIds.map(userId => new mongo.ObjectId(userId));
+    let room = null;
 
-    const room = await MongoRoom.findOne({
-      $or: [
-        { id },
-        {
-          usersIds: {
-            $all: usersObjectIds
-          }
-        }
-      ],
-    }).exec();
+    if (id) {
+      room = await MongoRoom.findOne({ id }).exec();
+    } else if (usersIds && usersIds.length > 0) {
+      const usersObjectIds = usersIds && usersIds.map(userId => new mongo.ObjectId(userId));
+
+      room = await MongoRoom.findOne({
+        usersIds: {
+          $all: usersObjectIds
+        },
+      }).exec();
+    }
 
     return room ? MongoRoomMapper.toDomain(room) : null;
   }

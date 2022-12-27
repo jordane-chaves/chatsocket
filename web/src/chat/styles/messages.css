@@ -2,6 +2,7 @@ main {
   display: flex;
   flex-direction: column;
 
+  height: 100%;
   width: 100%;
   min-width: 30rem;
 }
@@ -42,7 +43,7 @@ main footer {
   padding: 1rem 2rem;
 }
 
-main footer textarea {
+main footer #user_message {
   color: var(--text-color);
 
   background-color: var(--input-bg-color);
@@ -53,7 +54,7 @@ main footer textarea {
   letter-spacing: 1px;
 
   outline: none;
-  overflow-y: hidden;
+  overflow: hidden;
   resize: none;
 
   width: 100%;
@@ -61,11 +62,11 @@ main footer textarea {
   padding: 1rem;
 }
 
-main footer textarea:focus {
+main footer #user_message:focus {
   box-shadow: var(--ring);
 }
 
-main footer textarea::placeholder {
+main footer #user_message::placeholder {
   color: var(--gray-400);
 }
 
@@ -102,6 +103,11 @@ main footer button:hover {
 
   height: 100%;
   padding: 2rem;
+
+  max-height: 100%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .message {

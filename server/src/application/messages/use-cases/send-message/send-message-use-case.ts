@@ -1,5 +1,6 @@
 import { Message } from "@application/messages/entities/message";
 import { MessagesRepository } from "@application/messages/repositories/messages-repository";
+import { inject, injectable } from "tsyringe";
 
 interface SendMessageRequest {
   from: string;
@@ -11,8 +12,12 @@ interface SendMessageResponse {
   message: Message;
 }
 
+@injectable()
 export class SendMessageUseCase {
-  constructor(private messagesRepository: MessagesRepository) {}
+  constructor(
+    @inject('MessagesRepository')
+    private messagesRepository: MessagesRepository
+  ) {}
 
   async execute(request: SendMessageRequest): Promise<SendMessageResponse> {
     const { from, roomId, text } = request;
