@@ -15,7 +15,7 @@ main header {
 main header .info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 main header .info span:nth-child(1) {
@@ -34,14 +34,11 @@ main header .info span:nth-child(2) {
 main footer {
   background-color: var(--bg-color-secondary);
   outline: 1px solid var(--border-color);
-
-  height: 5rem;
 }
 
 main footer form {
   display: flex;
-  gap: 2rem;
-
+  gap: 1rem;
   padding: 1rem 2rem;
 }
 
@@ -56,9 +53,8 @@ main footer form #user_message {
   letter-spacing: 1px;
 
   outline: none;
-  overflow: hidden;
-  resize: none;
 
+  height: 2.75rem;
   width: 100%;
 
   padding: 1rem;
@@ -77,10 +73,10 @@ main footer form button {
   border: none;
   border-radius: 0.5rem;
 
-  height: 3rem;
-  width: 3rem;
-  min-height: 3rem;
-  min-width: 3rem;
+  height: 2.75rem;
+  width: 2.75rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
 
   outline: none;
 
@@ -102,6 +98,8 @@ main footer form button:hover {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  flex: 1 1 0;
 
   height: 100%;
   padding: 2rem;

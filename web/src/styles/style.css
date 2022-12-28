@@ -5,6 +5,7 @@ div.content {
   justify-content: center;
   gap: 2rem;
 
+  height: 100%;
   width: 100%;
 }
 
