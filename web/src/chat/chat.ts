@@ -15,11 +15,11 @@ import { Message } from './dtos/Message';
 import { Room } from './dtos/Room';
 import { User } from './dtos/User';
 
-import { setUserLoggedInfo } from './js/set-user-logged-info';
-import { addMessage } from './js/add-message';
-import { addToContactList } from './js/add-to-contact-list';
-import { sendMessage } from './js/send-message';
-import { setSelectedUserInfo } from './js/set-selected-user-info';
+import { setUserLoggedInfo } from './use-cases/set-user-logged-info';
+import { addMessage } from './use-cases/add-message';
+import { addToContactList } from './use-cases/add-to-contact-list';
+import { sendMessage } from './use-cases/send-message';
+import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
 
 interface ChatStartMessagesData {
   message: Message;
