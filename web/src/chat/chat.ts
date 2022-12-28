@@ -58,6 +58,11 @@ interface NotificationRequest {
   from: User;
 }
 
+interface UserLoggedInfoData {
+  name: string;
+  avatar: string;
+}
+
 const socket = io('http://localhost:3000');
 
 let roomId: string = '';
@@ -127,7 +132,7 @@ window.onload = () => {
 
   socket.on('notification', (data: NotificationRequest) => {
     if (data.roomId !== roomId) {
-      const user = document.getElementById(`user_${data.from.id}`);
+      const user = document.querySelector(`#user_${data.from.id} .avatar`);
 
       user?.insertAdjacentHTML('afterbegin', `
         <div class="notification"></div>
@@ -195,11 +200,6 @@ document.getElementById('user_message')!.addEventListener('keypress', (event) =>
   }
 });
 
-interface UserLoggedInfoData {
-  name: string;
-  avatar: string;
-}
-
 function setUserLoggedInfo(user: UserLoggedInfoData) {
   const userAvatar = document.getElementById('profile_avatar')!;
 
@@ -216,7 +216,10 @@ function addToContactList(user: User) {
     id="user_${user.id}"
     data-id-user="${user.id}"
   >
-    <img src="${user.avatar}" alt="User Avatar" class="avatar" >
+
+    <div class="avatar">
+      <img src="${user.avatar}" alt="User Avatar">
+    </div>
 
     <div class="info">
       <span class="contact_name">${user.name}</span>

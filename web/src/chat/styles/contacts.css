@@ -49,10 +49,17 @@ aside h3 {
 }
 
 .contact .avatar {
-  border-radius: 50%;
-
   height: 3rem;
   width: 3rem;
+
+  position: relative;
+}
+
+.contact .avatar img {
+  border-radius: 50%;
+
+  height: 100%;
+  width: 100%;
 }
 
 .contact .info {
@@ -76,9 +83,18 @@ aside h3 {
 }
 
 .contact .notification {
-  border-radius: 50%;
   background-color: var(--secondary);
+  border-radius: 50%;
+
+  box-shadow: 0 0 0 1px var(--bg-color-secondary);
 
   height: 0.5rem;
   width: 0.5rem;
+
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+
+  transform: translate(50%);
 }
