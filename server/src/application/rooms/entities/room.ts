@@ -1,7 +1,9 @@
+import { User } from '@application/users/entities/user';
 import { randomUUID } from 'node:crypto';
 
 export interface RoomProps {
   usersIds: string[];
+  users?: User[];
 }
 
 export class Room {
@@ -23,5 +25,9 @@ export class Room {
 
   public set usersIds(usersIds: string[]) {
     this.props.usersIds = usersIds;
+  }
+
+  public get users() {
+    return this.props.users;
   }
 }

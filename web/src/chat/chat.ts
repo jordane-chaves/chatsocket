@@ -52,6 +52,12 @@ interface AddMessageData {
   userLogged: User;
 }
 
+interface NotificationRequest {
+  newMessage: boolean;
+  roomId: string;
+  from: User;
+}
+
 const socket = io('http://localhost:3000');
 
 let roomId: string = '';
@@ -116,6 +122,16 @@ window.onload = () => {
       });
     }
   });
+
+  socket.on('notification', (data: NotificationRequest) => {
+    if (data.roomId !== roomId) {
+      const user = document.getElementById(`user_${data.from.id}`);
+
+      user?.insertAdjacentHTML('afterbegin', `
+        <div class="notification"></div>
+      `);
+    }
+  });
 };
 
 document.getElementById('contacts_list')!.addEventListener('click', (event) => {
@@ -128,12 +144,21 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
   const clickedElement = event.target as Element | null;
 
   if (clickedElement && clickedElement.matches('li.contact')) {
+    const messagesMain = document.querySelector('.content main')!;
+    messagesMain.classList.remove('hidden');
+
     clickedElement.classList.add('selected');
 
     const userId = clickedElement.getAttribute('data-id-user');
 
     if (!userId) {
       return;
+    }
+
+    const notification = document.querySelector(`#user_${userId} .notification`);
+
+    if (notification) {
+      notification.remove();
     }
 
     socket.emit('chat:start', { userId }, async (response: ChatStartResponse) => {
@@ -159,6 +184,10 @@ document.getElementById('user_message')!.addEventListener('keypress', (event) =>
     const message = inputMessage.value;
 
     inputMessage.value = '';
+
+    if (!roomId) {
+      return;
+    }
 
     socket.emit('message:send', { message, roomId });
   }

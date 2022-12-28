@@ -79,3 +79,7 @@ body {
 #app div.content {
   height: 100%;
 }
+
+.hidden {
+  display: none;
+}

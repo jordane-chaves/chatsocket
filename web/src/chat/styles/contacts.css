@@ -74,3 +74,11 @@ aside h3 {
 
   opacity: 0.7;
 }
+
+.contact .notification {
+  border-radius: 50%;
+  background-color: var(--secondary);
+
+  height: 0.5rem;
+  width: 0.5rem;
+}

@@ -6,9 +6,11 @@ import { Room as MongoRoom } from '../schemas/Room';
 
 export class MongoRoomsRepository implements RoomsRepository {
   async create(room: Room): Promise<void> {
+    const usersObjectIds = room.usersIds.map(userId => new mongo.ObjectId(userId));
+
     await MongoRoom.create({
       id: room.id,
-      usersIds: room.usersIds
+      usersIds: usersObjectIds
     });
   }
 
@@ -16,7 +18,10 @@ export class MongoRoomsRepository implements RoomsRepository {
     let room = null;
 
     if (id) {
-      room = await MongoRoom.findOne({ id }).exec();
+      room = await MongoRoom
+        .findOne({ id })
+        .populate('usersIds')
+        .exec();
     } else if (usersIds && usersIds.length > 0) {
       const usersObjectIds = usersIds && usersIds.map(userId => new mongo.ObjectId(userId));
 
