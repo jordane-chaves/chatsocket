@@ -36,14 +36,16 @@ main footer {
   outline: 1px solid var(--border-color);
 
   height: 5rem;
+}
 
+main footer form {
   display: flex;
   gap: 2rem;
 
   padding: 1rem 2rem;
 }
 
-main footer #user_message {
+main footer form #user_message {
   color: var(--text-color);
 
   background-color: var(--input-bg-color);
@@ -62,15 +64,15 @@ main footer #user_message {
   padding: 1rem;
 }
 
-main footer #user_message:focus {
+main footer form #user_message:focus {
   box-shadow: var(--ring);
 }
 
-main footer #user_message::placeholder {
+main footer form #user_message::placeholder {
   color: var(--gray-400);
 }
 
-main footer button {
+main footer form button {
   background-color: var(--brand);
   border: none;
   border-radius: 0.5rem;
@@ -85,11 +87,11 @@ main footer button {
   padding: 0.75rem;
 }
 
-main footer button:focus {
+main footer form button:focus {
   box-shadow: var(--ring);
 }
 
-main footer button:hover {
+main footer form button:hover {
   cursor: pointer;
   filter: brightness(1.2);
 

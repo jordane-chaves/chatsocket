@@ -63,6 +63,11 @@ interface UserLoggedInfoData {
   avatar: string;
 }
 
+interface SelectedUserData {
+  name: string;
+  avatar: string;
+}
+
 const socket = io('http://localhost:3000');
 
 let roomId: string = '';
@@ -149,18 +154,21 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
   document.getElementById('messages')!.innerHTML = '';
 
   const clickedElement = event.target as Element | null;
+  const messagesMain = document.querySelector('.content main')!;
 
   if (clickedElement && clickedElement.matches('li.contact')) {
-    const messagesMain = document.querySelector('.content main')!;
     messagesMain.classList.remove('hidden');
-
     clickedElement.classList.add('selected');
 
     const userId = clickedElement.getAttribute('data-id-user');
+    const userName = clickedElement.querySelector('.info .contact_name')?.innerHTML;
+    const userImage = clickedElement.querySelector('.avatar img')?.getAttribute('src');
 
-    if (!userId) {
+    if (!userId || !userName || !userImage) {
       return;
     }
+
+    addSelectedUserInfo({ name: userName, avatar: userImage });
 
     const notification = document.querySelector(`#user_${userId} .notification`);
 
@@ -181,23 +189,21 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
         });
       });
     });
+  } else {
+    messagesMain.classList.add('hidden');
   }
 });
 
-document.getElementById('user_message')!.addEventListener('keypress', (event) => {
-  if (event.target && event.key === 'Enter') {
-    const inputMessage = event.target as HTMLInputElement;
+document.querySelector('main > footer > form')!.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-    const message = inputMessage.value;
+  const inputMessage = document.getElementById('user_message')! as HTMLInputElement;
 
-    inputMessage.value = '';
+  const message = inputMessage.value;
 
-    if (!roomId) {
-      return;
-    }
+  inputMessage.value = '';
 
-    socket.emit('message:send', { message, roomId });
-  }
+  sendMessage(message);
 });
 
 function setUserLoggedInfo(user: UserLoggedInfoData) {
@@ -227,6 +233,27 @@ function addToContactList(user: User) {
     </div>
   </li>
   `;
+}
+
+function addSelectedUserInfo(data: SelectedUserData) {
+  const messagesHeader = document.getElementById('messages_header')!;
+
+  messagesHeader.innerHTML = `
+  <img class="avatar" src="${data.avatar}" alt="Avatar ${data.name}">
+
+  <div class="info">
+    <span class="contact_name">${data.name}</span>
+    <span class="description">Typing...</span>
+  </div>
+  `;
+}
+
+function sendMessage(message: string) {
+  if (!message || !roomId) {
+    return;
+  }
+
+  socket.emit('message:send', { message, roomId });
 }
 
 function addMessage(data: AddMessageData) {
