@@ -6,31 +6,20 @@ import './styles/contacts.css';
 import './styles/messages.css';
 import './styles/theme-button.css';
 
+import { io } from 'socket.io-client';
+
 import '../utils/themeSwitcher';
 import { setFakerData } from './faker-data';
-import { io } from 'socket.io-client';
-import dayjs from 'dayjs';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  avatar: string;
-  socketId: string;
-}
+import { Message } from './dtos/Message';
+import { Room } from './dtos/Room';
+import { User } from './dtos/User';
 
-interface Room {
-  id: string;
-  usersIds: string[];
-}
-
-interface Message {
-  id: string;
-  from: string;
-  text: string;
-  roomId: string;
-  createdAt: Date;
-}
+import { setUserLoggedInfo } from './js/set-user-logged-info';
+import { addMessage } from './js/add-message';
+import { addToContactList } from './js/add-to-contact-list';
+import { sendMessage } from './js/send-message';
+import { setSelectedUserInfo } from './js/set-selected-user-info';
 
 interface ChatStartMessagesData {
   message: Message;
@@ -47,26 +36,10 @@ interface SendMessageRequest {
   user: User;
 }
 
-interface AddMessageData {
-  message: Message;
-  user: User;
-  userLogged: User;
-}
-
 interface NotificationRequest {
   newMessage: boolean;
   roomId: string;
   from: User;
-}
-
-interface UserLoggedInfoData {
-  name: string;
-  avatar: string;
-}
-
-interface SelectedUserData {
-  name: string;
-  avatar: string;
 }
 
 const socket = io('http://localhost:3000');
@@ -204,79 +177,5 @@ document.querySelector('main > footer > form')!.addEventListener('submit', (even
 
   inputMessage.value = '';
 
-  sendMessage(message);
+  sendMessage({ message, roomId, socket });
 });
-
-function setUserLoggedInfo(user: UserLoggedInfoData) {
-  const userAvatar = document.getElementById('profile_avatar')!;
-
-  userAvatar.setAttribute('src', user.avatar);
-  userAvatar.setAttribute('title', user.name);
-}
-
-function addToContactList(user: User) {
-  const contactsList = document.getElementById('contacts_list')!;
-
-  contactsList.innerHTML += `
-  <li
-    class="contact"
-    id="user_${user.id}"
-    data-id-user="${user.id}"
-  >
-
-    <div class="avatar">
-      <img src="${user.avatar}" alt="User Avatar">
-    </div>
-
-    <div class="info">
-      <span class="contact_name">${user.name}</span>
-      <span class="last_message"></span>
-    </div>
-  </li>
-  `;
-}
-
-function setSelectedUserInfo(data: SelectedUserData) {
-  const messagesHeader = document.getElementById('messages_header')!;
-
-  messagesHeader.innerHTML = `
-  <img class="avatar" src="${data.avatar}" alt="Avatar ${data.name}">
-
-  <div class="info">
-    <span class="contact_name">${data.name}</span>
-    <span class="description">Typing...</span>
-  </div>
-  `;
-}
-
-function sendMessage(message: string) {
-  if (!message || !roomId) {
-    return;
-  }
-
-  socket.emit('message:send', { message, roomId });
-}
-
-function addMessage(data: AddMessageData) {
-  const { message, user, userLogged } = data;
-
-  const messages = document.getElementById('messages')!;
-
-  const divMessage = document.createElement('div');
-
-  divMessage.classList.add('message');
-
-  if (user.id === userLogged?.id) {
-    divMessage.classList.add('right');
-  }
-
-  divMessage.innerHTML += `
-    <div class="content">
-      <p>${message.text}</p>
-    </div>
-
-    <span>${dayjs(message.createdAt).format('HH:mm')}</span>
-  `;
-
-  messages.appendChild(divMessage);
-}

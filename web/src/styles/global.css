@@ -73,7 +73,6 @@ body {
   align-items: center;
 
   height: 100vh;
-  max-height: 100vh;
 }
 
 #app div.content {
