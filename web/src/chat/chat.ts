@@ -99,7 +99,9 @@ window.onload = () => {
 
   socket.emit('users:list', async (users: User[]) => {
     users.map(user => {
-      if (user.email !== email) {
+      const userExistsInContactList = document.getElementById(`user_${user.id}`);
+
+      if (user.email !== email && !userExistsInContactList) {
         addToContactList({
           id: user.id,
           name: user.name,

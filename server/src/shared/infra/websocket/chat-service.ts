@@ -105,7 +105,9 @@ io.on('connect', (socket) => {
       user: UserViewModel.toSocket(user),
     });
 
-    const recipientUser = room.users.find(roomUser => roomUser.id !== user.id);
+    const recipientUser = room.users.find(
+      roomUser => String(roomUser.id) !== String(user.id)
+    );
 
     io.to(recipientUser.socketId).emit('notification', {
       newMessage: true,
