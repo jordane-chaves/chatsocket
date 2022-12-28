@@ -1,4 +1,5 @@
 import '../styles/global.css';
+import '../styles/scrollbar.css';
 import './styles/style.css';
 import './styles/header.css';
 import './styles/contacts.css';
@@ -168,7 +169,7 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
       return;
     }
 
-    addSelectedUserInfo({ name: userName, avatar: userImage });
+    setSelectedUserInfo({ name: userName, avatar: userImage });
 
     const notification = document.querySelector(`#user_${userId} .notification`);
 
@@ -235,7 +236,7 @@ function addToContactList(user: User) {
   `;
 }
 
-function addSelectedUserInfo(data: SelectedUserData) {
+function setSelectedUserInfo(data: SelectedUserData) {
   const messagesHeader = document.getElementById('messages_header')!;
 
   messagesHeader.innerHTML = `
