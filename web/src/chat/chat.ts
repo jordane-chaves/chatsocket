@@ -21,6 +21,7 @@ import { addToContactList } from './use-cases/add-to-contact-list';
 import { sendMessage } from './use-cases/send-message';
 import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
 import { scrollToBottom } from './use-cases/scroll-to-bottom';
+import { addMessageDate } from './use-cases/add-message-date';
 
 interface ChatStartResponse {
   room: Room;
@@ -157,6 +158,21 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
       roomId = room.id;
 
       messages.forEach(message => {
+        const previousMessage = messages[
+          messages.findIndex(messageInList => messageInList === message) -1
+        ];
+
+        if (previousMessage) {
+          const previousMessageDay = new Date(previousMessage.createdAt).getDay();
+          const currentMessageDay = new Date(message.createdAt).getDay();
+
+          if (previousMessageDay !== currentMessageDay) {
+            addMessageDate({ date: message.createdAt });
+          }
+        } else {
+          addMessageDate({ date: message.createdAt });
+        }
+
         addMessage({
           message,
           userLogged,
