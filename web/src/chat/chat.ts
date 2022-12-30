@@ -20,6 +20,7 @@ import { addMessage } from './use-cases/add-message';
 import { addToContactList } from './use-cases/add-to-contact-list';
 import { sendMessage } from './use-cases/send-message';
 import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
+import { scrollToBottom } from './use-cases/scroll-to-bottom';
 
 interface ChatStartResponse {
   room: Room;
@@ -52,6 +53,7 @@ window.onload = () => {
   if (!name || !email || !avatar) {
     if (import.meta.env.DEV) {
       setFakerData();
+      scrollToBottom('messages');
     } else {
       window.location.replace('/');
     }
@@ -101,6 +103,8 @@ window.onload = () => {
         user: data.user,
         userLogged,
       });
+
+      scrollToBottom('messages');
     }
   });
 
@@ -158,6 +162,8 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
           userLogged,
         });
       });
+
+      scrollToBottom('messages');
     });
   } else {
     messagesMain.classList.add('hidden');

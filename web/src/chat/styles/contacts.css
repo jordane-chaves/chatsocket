@@ -1,24 +1,12 @@
-aside {
-  background-color: var(--bg-color-secondary);
-  border: 1px solid var(--border-color);
-
-  width: 24rem;
-  min-width: 22rem;
-}
-
-aside h3 {
-  letter-spacing: 1px;
-  margin: 2rem 2rem 0;
-}
-
 #contacts_list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
+  flex: 1 1 0;
   list-style: none;
 
-  margin-top: 0.5rem;
+  margin: 1rem 0;
 
   height: 100%;
 

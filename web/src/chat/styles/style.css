@@ -1,7 +1,36 @@
+.hidden {
+  display: none;
+}
+
 div.content {
   display: flex;
   flex: 1;
 
   height: 100%;
   width: 100%;
+}
+
+aside {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+
+  display: flex;
+  flex-direction: column;
+
+  width: 24rem;
+  min-width: 22rem;
+}
+
+aside h3 {
+  letter-spacing: 1px;
+  margin: 2rem 2rem 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+  min-width: 30rem;
 }

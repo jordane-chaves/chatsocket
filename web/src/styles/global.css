@@ -58,6 +58,9 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
 
+  height: 100vh;
+  width: 100vw;
+
   overflow: hidden;
 }
 
@@ -67,9 +70,5 @@ body {
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
-}
-
-.hidden {
-  display: none;
+  height: 100%;
 }

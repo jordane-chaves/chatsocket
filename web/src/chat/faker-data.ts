@@ -9,21 +9,17 @@ export function setFakerData() {
 }
 
 function setUsersInfos() {
-  addToContactList({
-    id: faker.datatype.uuid(),
-    name: faker.name.firstName(),
-    avatar: faker.image.avatar(),
-    email: faker.internet.email(),
-    socketId: faker.datatype.uuid(),
-  });
+  const numberOfContacts = 20;
 
-  addToContactList({
-    id: faker.datatype.uuid(),
-    name: faker.name.firstName(),
-    avatar: faker.image.avatar(),
-    email: faker.internet.email(),
-    socketId: faker.datatype.uuid(),
-  });
+  for (let i = 0; i < numberOfContacts; i++) {
+    addToContactList({
+      id: faker.datatype.uuid(),
+      name: faker.name.firstName(),
+      avatar: faker.image.avatar(),
+      email: faker.internet.email(),
+      socketId: faker.datatype.uuid(),
+    });
+  }
 
   document
     .querySelector('header .right .avatar')
