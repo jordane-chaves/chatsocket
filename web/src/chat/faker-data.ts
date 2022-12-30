@@ -40,13 +40,13 @@ function setMessages() {
         from: faker.datatype.uuid(),
         roomId: faker.datatype.uuid(),
         createdAt: new Date(),
-      },
-      user: {
-        id: faker.datatype.uuid(),
-        name: faker.name.firstName(),
-        avatar: faker.image.avatar(),
-        email: faker.internet.email(),
-        socketId: faker.datatype.uuid(),
+        user: {
+          id: faker.datatype.uuid(),
+          name: faker.name.firstName(),
+          avatar: faker.image.avatar(),
+          email: faker.internet.email(),
+          socketId: faker.datatype.uuid(),
+        },
       },
       userLogged: {
         id: faker.datatype.uuid(),

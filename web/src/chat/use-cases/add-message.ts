@@ -5,22 +5,22 @@ import { User } from '../dtos/User';
 
 interface AddMessageData {
   message: Message;
-  user: User;
   userLogged: User;
 }
 
 export function addMessage(data: AddMessageData) {
-  const { message, user, userLogged } = data;
+  const { message, userLogged } = data;
 
   const messages = document.getElementById('messages')!;
-
   const divMessage = document.createElement('div');
 
-  divMessage.classList.add('message');
+  const isMessageFromUserLogged = message.user?.id === userLogged?.id;
 
-  if (user.id === userLogged?.id) {
+  if (isMessageFromUserLogged) {
     divMessage.classList.add('right');
   }
+
+  divMessage.classList.add('message');
 
   divMessage.innerHTML += `
     <div class="content">

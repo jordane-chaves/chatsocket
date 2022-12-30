@@ -98,9 +98,10 @@ window.onload = () => {
 
   socket.on('message:send', async (data: SendMessageRequest) => {
     if (data.message.roomId === roomId) {
+      data.message.user = data.user;
+
       addMessage({
         message: data.message,
-        user: data.user,
         userLogged,
       });
 
@@ -158,7 +159,6 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
       messages.forEach(message => {
         addMessage({
           message,
-          user: message.user,
           userLogged,
         });
       });
