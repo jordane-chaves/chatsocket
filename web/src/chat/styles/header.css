@@ -24,6 +24,7 @@ header .right {
 
 header .avatar {
   border-radius: 50%;
+  border: 1px solid var(--border-color);
 
   height: 2.5rem;
   width: 2.5rem;
