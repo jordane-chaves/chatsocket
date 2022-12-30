@@ -1,6 +1,8 @@
+import { mongo } from "mongoose";
+
 import { Message } from "@application/messages/entities/message";
 import { MessagesRepository } from "@application/messages/repositories/messages-repository";
-import { mongo } from "mongoose";
+
 import { MongoMessageMapper } from "../mappers/mongo-message-mapper";
 import { Message as MongoMessage } from '../schemas/Message';
 

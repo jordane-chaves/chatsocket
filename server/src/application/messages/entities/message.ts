@@ -1,12 +1,14 @@
 import { randomUUID } from 'node:crypto';
 
 import { Replace } from '@core/Replace';
+import { User } from '@application/users/entities/user';
 
 export interface MessageProps {
   from: string;
   text: string;
   roomId: string;
   createdAt: Date;
+  user?: User | null;
 }
 
 export class Message {
@@ -54,5 +56,9 @@ export class Message {
 
   public get createdAt() {
     return this.props.createdAt;
+  }
+
+  public get user() {
+    return this.props.user;
   }
 }

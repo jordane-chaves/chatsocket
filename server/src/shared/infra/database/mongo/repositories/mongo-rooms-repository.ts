@@ -1,6 +1,8 @@
+import { mongo } from "mongoose";
+
 import { Room } from "@application/rooms/entities/room";
 import { FindRoomData, RoomsRepository } from "@application/rooms/repositories/rooms-repository";
-import { mongo } from "mongoose";
+
 import { MongoRoomMapper } from "../mappers/mongo-room-mapper";
 import { Room as MongoRoom } from '../schemas/Room';
 

@@ -21,14 +21,9 @@ import { addToContactList } from './use-cases/add-to-contact-list';
 import { sendMessage } from './use-cases/send-message';
 import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
 
-interface ChatStartMessagesData {
-  message: Message;
-  user: User;
-}
-
 interface ChatStartResponse {
   room: Room;
-  messages: ChatStartMessagesData[];
+  messages: Message[];
 }
 
 interface SendMessageRequest {
@@ -126,6 +121,7 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
     .forEach(contact => contact.classList.remove('selected'));
 
   document.getElementById('messages')!.innerHTML = '';
+  roomId = '';
 
   const clickedElement = event.target as Element | null;
   const messagesMain = document.querySelector('.content main')!;
@@ -155,10 +151,10 @@ document.getElementById('contacts_list')!.addEventListener('click', (event) => {
 
       roomId = room.id;
 
-      messages.forEach(item => {
+      messages.forEach(message => {
         addMessage({
-          message: item.message,
-          user: item.user,
+          message,
+          user: message.user,
           userLogged,
         });
       });

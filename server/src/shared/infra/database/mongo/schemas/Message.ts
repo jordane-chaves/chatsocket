@@ -1,7 +1,8 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { User } from "./User";
 
 type Message = Document & {
-  from: string;
+  from: string | User;
   text: string;
   roomId: string;
   createdAt: Date;

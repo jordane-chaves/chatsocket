@@ -1,30 +1,28 @@
 import { Message } from '@application/messages/entities/message';
 import { User } from '@application/users/entities/user';
-import { Replace } from '@core/Replace';
-import { User as RawUser } from '../schemas/User';
-import { Message as RawMessage } from '../schemas/Message';
 
-interface ToDomainReturn {
-  message: Message;
-  user: User;
-}
+import { Message as RawMessage } from '../schemas/Message';
+import { User as RawUser } from '../schemas/User';
 
 export class MongoMessageMapper {
-  static toDomain(raw: Replace<RawMessage, { from: RawUser }>): ToDomainReturn {
-    const user = new User({
-      avatar: raw.from.avatar,
-      email: raw.from.email,
-      name: raw.from.name,
-      socketId: raw.from.socketId,
-    }, String(raw.from._id));
+  static toDomain(raw: RawMessage): Message {
+    let user = null;
 
-    const message = new Message({
-      from: user.id,
+    if (raw.from instanceof RawUser) {
+      user = new User({
+        avatar: raw.from.avatar,
+        email: raw.from.email,
+        name: raw.from.name,
+        socketId: raw.from.socketId,
+      }, String(raw.from._id));
+    }
+
+    return new Message({
+      from: user ? user.id : raw.from,
       roomId: raw.roomId,
       text: raw.text,
       createdAt: raw.createdAt,
+      user,
     }, raw.id);
-
-    return { message, user };
   }
 }

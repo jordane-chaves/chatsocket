@@ -1,8 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { User } from "./User";
 
 type Room = Document & {
   id: string;
-  usersIds: string[];
+  usersIds: string[] | User[];
 }
 
 const RoomSchema = new Schema({
