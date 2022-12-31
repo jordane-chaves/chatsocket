@@ -61,7 +61,7 @@ window.onload = () => {
     return;
   }
 
-  setUserLoggedInfo({ name, avatar })
+  setUserLoggedInfo({ name, avatar });
 
   socket.emit('start', { name, email, avatar });
 
@@ -195,5 +195,5 @@ document.querySelector('main > footer > form')!.addEventListener('submit', (even
 
   inputMessage.value = '';
 
-  sendMessage({ message, roomId, socket });
+  sendMessage({ message, roomId }, socket);
 });

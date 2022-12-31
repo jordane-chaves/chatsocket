@@ -3,10 +3,12 @@ import { Socket } from "socket.io-client";
 interface SendMessageData {
   message: string;
   roomId: string;
-  socket: Socket;
 }
 
-export function sendMessage({ message, roomId, socket }: SendMessageData) {
+export function sendMessage(
+    { message, roomId }: SendMessageData,
+    socket: Socket
+  ) {
   if (!message || !roomId) {
     return;
   }
