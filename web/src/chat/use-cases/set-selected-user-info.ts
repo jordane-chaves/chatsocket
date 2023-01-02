@@ -11,7 +11,7 @@ export function setSelectedUserInfo(data: SelectedUserData) {
 
   <div class="info">
     <span class="contact_name">${data.name}</span>
-    <span class="description">Typing...</span>
+    <span class="description"></span>
   </div>
   `;
 }

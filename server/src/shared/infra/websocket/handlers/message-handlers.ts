@@ -13,6 +13,10 @@ interface MessageSendRequest {
   roomId: string;
 }
 
+interface MessageTyping {
+  roomId: string;
+}
+
 export function messageHandlers(io: Server, socket: Socket) {
   async function sendMessage(data: MessageSendRequest) {
     const { message: text, roomId } = data;
@@ -24,6 +28,10 @@ export function messageHandlers(io: Server, socket: Socket) {
     const { user } = await getSocketUserUseCase.execute({
       socketId: socket.id
     });
+
+    if (!user) {
+      return;
+    }
 
     const { room } = await getRoomUseCase.execute({ id: roomId });
 
@@ -49,5 +57,26 @@ export function messageHandlers(io: Server, socket: Socket) {
     });
   }
 
+  async function messageTyping(data: MessageTyping) {
+    const { roomId } = data;
+
+    const getSocketUserUseCase = container.resolve(GetSocketUserUseCase);
+    const getRoomUseCase = container.resolve(GetRoomUseCase);
+
+    const { user } = await getSocketUserUseCase.execute({ socketId: socket.id });
+    const { room } = await getRoomUseCase.execute({ id: roomId });
+
+    if (!user) {
+      return;
+    }
+
+    const recipientUser = room.users.find(
+      roomUser => String(roomUser.id) !== String(user.id)
+    );
+
+    io.to(recipientUser.socketId).emit('message:typing', { typing: true });
+  }
+
   socket.on('message:send', sendMessage);
+  socket.on('message:typing', messageTyping);
 }

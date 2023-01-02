@@ -22,6 +22,7 @@ import { sendMessage } from './use-cases/send-message';
 import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
 import { scrollToBottom } from './use-cases/scroll-to-bottom';
 import { addMessageDate } from './use-cases/add-message-date';
+import { setTypingMessage } from './use-cases/set-typing-message';
 
 interface ChatStartResponse {
   room: Room;
@@ -119,6 +120,12 @@ window.onload = () => {
       `);
     }
   });
+
+  socket.on('message:typing', (data) => {
+    if (data.typing) {
+      setTypingMessage();
+    }
+  });
 };
 
 document.getElementById('contacts_list')!.addEventListener('click', (event) => {
@@ -196,4 +203,8 @@ document.querySelector('main > footer > form')!.addEventListener('submit', (even
   inputMessage.value = '';
 
   sendMessage({ message, roomId }, socket);
+});
+
+document.getElementById('user_message')!.addEventListener('input', (event) => {
+  socket.emit('message:typing', { roomId });
 });
