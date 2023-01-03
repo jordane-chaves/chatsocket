@@ -11,4 +11,16 @@ export class InMemoryMessagesRepository implements MessagesRepository {
   async findManyByRoomId(roomId: string): Promise<Message[]> {
     return this.messages.filter(message => message.roomId === roomId);
   }
+
+  async findLastByRoomId(roomId: string): Promise<Message> {
+    const messages = this.messages.filter(message => message.roomId === roomId);
+
+    const descendingSortMessages = messages.sort((a, b) =>
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+
+    const lastMessage = descendingSortMessages[0];
+
+    return lastMessage;
+  }
 }

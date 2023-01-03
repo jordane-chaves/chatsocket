@@ -22,6 +22,10 @@ export function chatHandlers(io: Server, socket: Socket) {
       socketId: socket.id
     });
 
+    if (!userLogged) {
+      return;
+    }
+
     const { room } = await createRoomUseCase.execute({
       usersIds: [ data.userId, userLogged.id ],
     });

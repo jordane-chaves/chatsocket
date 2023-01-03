@@ -36,6 +36,8 @@ export class CreateUserUseCase {
 
     await this.usersRepository.create(user);
 
-    return { user };
+    const createdUser = await this.usersRepository.findByEmail(email);
+
+    return { user: createdUser };
   }
 }

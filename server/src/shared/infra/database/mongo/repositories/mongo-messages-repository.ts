@@ -28,4 +28,18 @@ export class MongoMessagesRepository implements MessagesRepository {
       ? messages.map(MongoMessageMapper.toDomain)
       : [];
   }
+
+  async findLastByRoomId(roomId: string): Promise<Message> {
+    const message = await MongoMessage
+      .findOne({ roomId })
+      .sort({ createdAt: -1 })
+      .populate('from')
+      .exec();
+
+    if (!message) {
+      return null;
+    }
+
+    return MongoMessageMapper.toDomain(message);
+  }
 }

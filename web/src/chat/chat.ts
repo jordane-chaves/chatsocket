@@ -23,6 +23,7 @@ import { setSelectedUserInfo } from './use-cases/set-selected-user-info';
 import { scrollToBottom } from './use-cases/scroll-to-bottom';
 import { addMessageDate } from './use-cases/add-message-date';
 import { setTypingMessage } from './use-cases/set-typing-message';
+import { addLastMessage } from './use-cases/add-last-message';
 
 interface ChatStartResponse {
   room: Room;
@@ -38,6 +39,10 @@ interface NotificationRequest {
   newMessage: boolean;
   roomId: string;
   from: User;
+}
+
+interface LastMessageResponse {
+  message: Message | null;
 }
 
 const socket = io('http://localhost:3000');
@@ -92,6 +97,14 @@ window.onload = () => {
           avatar: user.avatar,
           socketId: user.socketId
         });
+
+        socket.emit('message:last', { userId: user.id }, (data: LastMessageResponse) => {
+          const { message } = data;
+
+          if (message) {
+            addLastMessage({ message, userId: user.id });
+          }
+        });
       } else {
         userLogged = user;
       }
@@ -100,11 +113,24 @@ window.onload = () => {
 
   socket.on('message:send', async (data: SendMessageRequest) => {
     if (data.message.roomId === roomId) {
+      const selectedUserId = document
+        .querySelector('#contacts_list .selected')
+        ?.getAttribute('data-id-user')!;
+
+      const userId = data.message.from === userLogged.id
+        ? selectedUserId
+        : data.message.from;
+
       data.message.user = data.user;
 
       addMessage({
         message: data.message,
         userLogged,
+      });
+
+      addLastMessage({
+        message: data.message,
+        userId,
       });
 
       scrollToBottom('messages');

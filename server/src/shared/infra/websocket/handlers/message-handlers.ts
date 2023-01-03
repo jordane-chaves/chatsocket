@@ -7,14 +7,19 @@ import { GetSocketUserUseCase } from "@application/users/use-cases/get-socket-us
 
 import { MessageViewModel } from "../view-models/message-view-model";
 import { UserViewModel } from "../view-models/user-view-model";
+import { GetLastRoomMessageUseCase } from "@application/messages/use-cases/get-last-room-message/get-last-room-message-use-case";
 
 interface MessageSendRequest {
   message: string;
   roomId: string;
 }
 
-interface MessageTyping {
+interface MessageTypingRequest {
   roomId: string;
+}
+
+interface MessageLastRequest {
+  userId: string;
 }
 
 export function messageHandlers(io: Server, socket: Socket) {
@@ -57,7 +62,7 @@ export function messageHandlers(io: Server, socket: Socket) {
     });
   }
 
-  async function messageTyping(data: MessageTyping) {
+  async function messageTypingRequest(data: MessageTypingRequest) {
     const { roomId } = data;
 
     const getSocketUserUseCase = container.resolve(GetSocketUserUseCase);
@@ -77,6 +82,39 @@ export function messageHandlers(io: Server, socket: Socket) {
     io.to(recipientUser.socketId).emit('message:typing', { typing: true });
   }
 
+  async function findLastMessage(data: MessageLastRequest, callback: Function) {
+    const { userId } = data;
+
+    if (!userId) {
+      return;
+    }
+
+    const getSocketUserUseCase = container.resolve(GetSocketUserUseCase);
+    const getRoomUseCase = container.resolve(GetRoomUseCase);
+    const getLastRoomMessageUseCase = container.resolve(
+      GetLastRoomMessageUseCase
+    );
+
+    const { user: userLogged } = await getSocketUserUseCase.execute({
+      socketId: socket.id
+    });
+
+    const { room } = await getRoomUseCase.execute({
+      usersIds: [ userLogged.id, userId ],
+    });
+
+    if (!room) {
+      callback({ message: null });
+    }
+
+    const { message } = await getLastRoomMessageUseCase.execute({
+      roomId: room?.id
+    });
+
+    callback({ message: message ? MessageViewModel.toSocket(message) : null });
+  }
+
   socket.on('message:send', sendMessage);
-  socket.on('message:typing', messageTyping);
+  socket.on('message:typing', messageTypingRequest);
+  socket.on('message:last', findLastMessage);
 }
