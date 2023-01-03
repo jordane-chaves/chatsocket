@@ -231,6 +231,6 @@ document.querySelector('main > footer > form')!.addEventListener('submit', (even
   sendMessage({ message, roomId }, socket);
 });
 
-document.getElementById('user_message')!.addEventListener('input', (event) => {
+document.getElementById('user_message')!.addEventListener('input', () => {
   socket.emit('message:typing', { roomId });
 });
