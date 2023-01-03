@@ -59,6 +59,7 @@ export function messageHandlers(io: Server, socket: Socket) {
       newMessage: true,
       roomId: room.id,
       from: UserViewModel.toSocket(user),
+      message: MessageViewModel.toSocket(message),
     });
   }
 

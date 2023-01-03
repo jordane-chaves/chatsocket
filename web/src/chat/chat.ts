@@ -39,6 +39,7 @@ interface NotificationRequest {
   newMessage: boolean;
   roomId: string;
   from: User;
+  message: Message;
 }
 
 interface LastMessageResponse {
@@ -117,10 +118,6 @@ window.onload = () => {
         .querySelector('#contacts_list .selected')
         ?.getAttribute('data-id-user')!;
 
-      const userId = data.message.from === userLogged.id
-        ? selectedUserId
-        : data.message.from;
-
       data.message.user = data.user;
 
       addMessage({
@@ -130,7 +127,7 @@ window.onload = () => {
 
       addLastMessage({
         message: data.message,
-        userId,
+        userId: selectedUserId,
       });
 
       scrollToBottom('messages');
@@ -139,11 +136,16 @@ window.onload = () => {
 
   socket.on('notification', (data: NotificationRequest) => {
     if (data.roomId !== roomId) {
-      const user = document.querySelector(`#user_${data.from.id} .avatar`);
+      const user = document.querySelector(`#user_${data.from.id}`);
 
-      user?.insertAdjacentHTML('afterbegin', `
+      user?.querySelector('.avatar')?.insertAdjacentHTML('afterbegin', `
         <div class="notification"></div>
       `);
+
+      addLastMessage({
+        message: data.message,
+        userId: data.from.id
+      });
     }
   });
 
