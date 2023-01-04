@@ -13,7 +13,7 @@ interface CreateUserRequest {
 }
 
 export function userHandlers(io: Server, socket: Socket) {
-  async function createUser (data: CreateUserRequest) {
+  async function createUser (data: CreateUserRequest, callback: Function) {
     const { name, email, avatar } = data;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
@@ -26,6 +26,7 @@ export function userHandlers(io: Server, socket: Socket) {
     });
 
     socket.broadcast.emit('users:new', UserViewModel.toSocket(user));
+    callback({ user: UserViewModel.toSocket(user) });
   }
 
   async function listUsers(callback: Function) {
@@ -38,6 +39,6 @@ export function userHandlers(io: Server, socket: Socket) {
     callback(usersList);
   }
 
-  socket.on('start', createUser);
+  socket.on('users:create', createUser);
   socket.on('users:list', listUsers);
 }

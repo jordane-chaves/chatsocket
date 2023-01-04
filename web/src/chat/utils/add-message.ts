@@ -1,20 +1,21 @@
 import dayjs from 'dayjs';
 
+import { AppLocalStorage } from '../../storage/app-local-storage';
 import { Message } from '../dtos/Message';
-import { User } from '../dtos/User';
 
 interface AddMessageData {
   message: Message;
-  userLogged: User;
 }
 
 export function addMessage(data: AddMessageData) {
-  const { message, userLogged } = data;
+  const { message } = data;
+
+  const userLoggedId = AppLocalStorage.getUserLogged();
 
   const messages = document.getElementById('messages')!;
   const divMessage = document.createElement('div');
 
-  const isMessageFromUserLogged = message.user?.id === userLogged?.id;
+  const isMessageFromUserLogged = message.user?.id === userLoggedId?.id;
 
   if (isMessageFromUserLogged) {
     divMessage.classList.add('right');
