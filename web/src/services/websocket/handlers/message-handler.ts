@@ -6,7 +6,7 @@ import { addLastMessage } from "../../../pages/chat/utils/add-last-message";
 import { addMessage } from "../../../pages/chat/utils/add-message";
 import { scrollToBottom } from "../../../pages/chat/utils/scroll-to-bottom";
 import { setTypingMessage } from "../../../pages/chat/utils/set-typing-message";
-import { AppLocalStorage } from "../../../storage/app-local-storage";
+import { AppLocalStorage } from "../../../utils/app-local-storage";
 
 interface SendMessageResponse {
   message: Message;

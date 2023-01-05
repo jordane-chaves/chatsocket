@@ -13,7 +13,7 @@ import { sendMessage } from "./utils/send-message";
 import { setSelectedUserInfo } from "./utils/set-selected-user-info";
 import { scrollToBottom } from "./utils/scroll-to-bottom";
 import { socket } from "../../services/websocket";
-import { AppLocalStorage } from "../../storage/app-local-storage";
+import { AppLocalStorage } from "../../utils/app-local-storage";
 import { userHandler } from "../../services/websocket/handlers/user-handler";
 import { messageHandler } from "../../services/websocket/handlers/message-handler";
 import { notificationHandler } from "../../services/websocket/handlers/notification-handler";

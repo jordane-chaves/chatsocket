@@ -3,7 +3,7 @@ import { Socket } from "socket.io-client";
 import { Message } from "../../../pages/chat/dtos/Message";
 import { User } from "../../../pages/chat/dtos/User";
 import { addLastMessage } from "../../../pages/chat/utils/add-last-message";
-import { AppLocalStorage } from "../../../storage/app-local-storage";
+import { AppLocalStorage } from "../../../utils/app-local-storage";
 
 interface NotificationRequest {
   newMessage: boolean;

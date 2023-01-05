@@ -4,7 +4,7 @@ import { Message } from "../../../pages/chat/dtos/Message";
 import { Room } from "../../../pages/chat/dtos/Room";
 import { addMessagesAndDate } from "../../../pages/chat/utils/add-messages-and-date";
 import { scrollToBottom } from "../../../pages/chat/utils/scroll-to-bottom";
-import { AppLocalStorage } from "../../../storage/app-local-storage";
+import { AppLocalStorage } from "../../../utils/app-local-storage";
 
 interface ChatHandlerRequest {
   socket: Socket;

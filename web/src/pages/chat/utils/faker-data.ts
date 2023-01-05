@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import { addToContactList } from './add-to-contact-list';
 import { addMessage } from './add-message';
-import { AppLocalStorage } from '../../../storage/app-local-storage';
+import { AppLocalStorage } from '../../../utils/app-local-storage';
 
 export function setFakerData() {
   setUsersInfos();
