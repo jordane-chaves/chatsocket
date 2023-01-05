@@ -8,7 +8,6 @@ import "./styles/theme-button.css";
 
 import "../utils/theme-switcher";
 import { setFakerData } from "./utils/faker-data";
-
 import { setUserLoggedInfo } from "./utils/set-user-logged-info";
 import { sendMessage } from "./utils/send-message";
 import { setSelectedUserInfo } from "./utils/set-selected-user-info";
@@ -39,54 +38,55 @@ window.onload = () => {
 
   setUserLoggedInfo({ name, avatar });
 
-  userHandler(socket).createUser({ avatar, email, name });
+  userHandler({
+    socket,
+    user: { avatar, email, name },
+  });
+
   messageHandler(socket);
   notificationHandler(socket);
 };
 
 document.getElementById("contacts_list")!.addEventListener("click", (event) => {
+  AppLocalStorage.setRoomId('');
+  document.getElementById("messages")!.innerHTML = "";
   document
     .querySelectorAll(".contact")
     .forEach((contact) => contact.classList.remove("selected"));
 
-  document.getElementById("messages")!.innerHTML = "";
-  AppLocalStorage.setRoomId('');
-
-  const clickedElement = event.target as Element | null;
+  const clickedElement = event.target as HTMLLIElement;
   const messagesMain = document.querySelector(".content main")!;
 
-  if (clickedElement && clickedElement.matches("li.contact")) {
-    messagesMain.classList.remove("hidden");
-    clickedElement.classList.add("selected");
+  const isContactSelected =
+    clickedElement && clickedElement.matches("li.contact");
 
-    document.querySelector<HTMLInputElement>("#user_message")!.focus();
-
-    const contactId = clickedElement.getAttribute("data-id-user");
-    const contactName = clickedElement.querySelector(
-      ".info .contact_name"
-    )?.innerHTML;
-    const userImage = clickedElement
-      .querySelector(".avatar img")
-      ?.getAttribute("src");
-
-    if (!contactId || !contactName || !userImage) {
-      return;
-    }
-
-    setSelectedUserInfo({ name: contactName, avatar: userImage });
-
-    const notification = document.querySelector(
-      `#user_${contactId} .notification`
-    );
-
-    if (notification) {
-      notification.remove();
-    }
-
-    chatHandler(socket).startChat({ contactId });
-  } else {
+  if (!isContactSelected) {
     messagesMain.classList.add("hidden");
+    return;
   }
+
+  messagesMain.classList.remove("hidden");
+  clickedElement.classList.add("selected");
+
+  document.querySelector<HTMLInputElement>("#user_message")!.focus();
+
+  setSelectedUserInfo({ selectedUser: clickedElement });
+
+  const contactId = clickedElement.getAttribute("data-id-user");
+
+  if (!contactId) {
+    return;
+  }
+
+  const notification = document.querySelector(
+    `#user_${contactId} .notification`
+  );
+
+  if (notification) {
+    notification.remove();
+  }
+
+  chatHandler({ socket, userId: contactId });
 });
 
 document

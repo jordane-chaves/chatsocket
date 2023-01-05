@@ -12,6 +12,11 @@ interface CreateUserRequest {
   avatar: string;
 }
 
+interface UserHandlerRequest {
+  socket: Socket,
+  user: CreateUserRequest
+}
+
 interface CreateUserResponse {
   user: User;
 }
@@ -20,7 +25,10 @@ interface LastMessageResponse {
   message: Message | null;
 }
 
-export function userHandler(socket: Socket) {
+export function userHandler(data: UserHandlerRequest) {
+  const { socket, user } = data;
+  const { avatar, email, name } = user;
+
   function listUsersCallback(users: User[]) {
     const userLogged = AppLocalStorage.getUserLogged();
 
@@ -29,7 +37,10 @@ export function userHandler(socket: Socket) {
         `user_${user.id}`
       );
 
-      if (user.email !== userLogged?.email && !userExistsInContactList) {
+      const isUserLogged =
+        user.email === email || user.email === userLogged?.email;
+
+      if (!isUserLogged && !userExistsInContactList) {
         addToContactList({
           id: user.id,
           name: user.name,
@@ -71,15 +82,7 @@ export function userHandler(socket: Socket) {
     AppLocalStorage.setUserLogged(data.user);
   }
 
-  function createUser(data: CreateUserRequest) {
-    const { avatar, email, name } = data;
-    socket.emit("users:create", { name, email, avatar }, createUserCallback);
-  }
-
+  socket.emit("users:create", { name, email, avatar }, createUserCallback);
   socket.emit("users:list", listUsersCallback);
   socket.on("users:new", onNewUser);
-
-  return {
-    createUser,
-  };
 }

@@ -6,8 +6,9 @@ import { addMessagesAndDate } from "../../../chat/utils/add-messages-and-date";
 import { scrollToBottom } from "../../../chat/utils/scroll-to-bottom";
 import { AppLocalStorage } from "../../../storage/app-local-storage";
 
-interface StartChatRequest {
-  contactId: string;
+interface ChatHandlerRequest {
+  socket: Socket;
+  userId: string;
 }
 
 interface ChatStartResponse {
@@ -15,7 +16,9 @@ interface ChatStartResponse {
   messages: Message[];
 }
 
-export function chatHandler(socket: Socket) {
+export function chatHandler(data: ChatHandlerRequest) {
+  const { socket, userId } = data;
+
   function startChatCallback(response: ChatStartResponse) {
     const { room, messages } = response;
 
@@ -25,13 +28,5 @@ export function chatHandler(socket: Socket) {
     scrollToBottom("messages");
   }
 
-  function startChat(data: StartChatRequest) {
-    const { contactId } = data;
-
-    socket.emit("chat:start", { userId: contactId }, startChatCallback);
-  }
-
-  return {
-    startChat
-  };
+  socket.emit("chat:start", { userId }, startChatCallback);
 }
