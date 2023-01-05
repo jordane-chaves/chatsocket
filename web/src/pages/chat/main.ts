@@ -1,23 +1,23 @@
-import "../styles/global.css";
-import "../styles/scrollbar.css";
+import "../../styles/global.css";
+import "../../styles/scrollbar.css";
 import "./styles/style.css";
 import "./styles/header.css";
 import "./styles/contacts.css";
 import "./styles/messages.css";
 import "./styles/theme-button.css";
 
-import "../utils/theme-switcher";
+import "../../utils/theme-switcher";
 import { setFakerData } from "./utils/faker-data";
 import { setUserLoggedInfo } from "./utils/set-user-logged-info";
 import { sendMessage } from "./utils/send-message";
 import { setSelectedUserInfo } from "./utils/set-selected-user-info";
 import { scrollToBottom } from "./utils/scroll-to-bottom";
-import { socket } from "../services/websocket";
-import { AppLocalStorage } from "../storage/app-local-storage";
-import { userHandler } from "../services/websocket/handlers/user-handler";
-import { messageHandler } from "../services/websocket/handlers/message-handler";
-import { notificationHandler } from "../services/websocket/handlers/notification-handler";
-import { chatHandler } from "../services/websocket/handlers/chat-handler";
+import { socket } from "../../services/websocket";
+import { AppLocalStorage } from "../../storage/app-local-storage";
+import { userHandler } from "../../services/websocket/handlers/user-handler";
+import { messageHandler } from "../../services/websocket/handlers/message-handler";
+import { notificationHandler } from "../../services/websocket/handlers/notification-handler";
+import { chatHandler } from "../../services/websocket/handlers/chat-handler";
 
 window.onload = () => {
   const params = new URLSearchParams(window.location.search);

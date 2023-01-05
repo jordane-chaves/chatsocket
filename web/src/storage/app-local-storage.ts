@@ -1,4 +1,4 @@
-import { User } from "../chat/dtos/User";
+import { User } from "../pages/chat/dtos/User";
 
 export class AppLocalStorage {
   static setUserLogged(userLogged: User) {

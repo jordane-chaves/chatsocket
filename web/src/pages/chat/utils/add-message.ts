@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { AppLocalStorage } from '../../storage/app-local-storage';
+import { AppLocalStorage } from '../../../storage/app-local-storage';
 import { Message } from '../dtos/Message';
 
 interface AddMessageData {

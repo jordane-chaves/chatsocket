@@ -1,9 +1,9 @@
 import { Socket } from "socket.io-client";
 
-import { Message } from "../../../chat/dtos/Message";
-import { User } from "../../../chat/dtos/User";
-import { addLastMessage } from "../../../chat/utils/add-last-message";
-import { addToContactList } from "../../../chat/utils/add-to-contact-list";
+import { Message } from "../../../pages/chat/dtos/Message";
+import { User } from "../../../pages/chat/dtos/User";
+import { addLastMessage } from "../../../pages/chat/utils/add-last-message";
+import { addToContactList } from "../../../pages/chat/utils/add-to-contact-list";
 import { AppLocalStorage } from "../../../storage/app-local-storage";
 
 interface CreateUserRequest {

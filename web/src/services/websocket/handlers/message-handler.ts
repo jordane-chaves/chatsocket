@@ -1,11 +1,11 @@
 import { Socket } from "socket.io-client";
 
-import { Message } from "../../../chat/dtos/Message";
-import { User } from "../../../chat/dtos/User";
-import { addLastMessage } from "../../../chat/utils/add-last-message";
-import { addMessage } from "../../../chat/utils/add-message";
-import { scrollToBottom } from "../../../chat/utils/scroll-to-bottom";
-import { setTypingMessage } from "../../../chat/utils/set-typing-message";
+import { Message } from "../../../pages/chat/dtos/Message";
+import { User } from "../../../pages/chat/dtos/User";
+import { addLastMessage } from "../../../pages/chat/utils/add-last-message";
+import { addMessage } from "../../../pages/chat/utils/add-message";
+import { scrollToBottom } from "../../../pages/chat/utils/scroll-to-bottom";
+import { setTypingMessage } from "../../../pages/chat/utils/set-typing-message";
 import { AppLocalStorage } from "../../../storage/app-local-storage";
 
 interface SendMessageResponse {

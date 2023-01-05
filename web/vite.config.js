@@ -9,7 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src', 'index.html'),
-        chat: resolve(__dirname, 'src', 'chat', 'index.html'),
+        chat: resolve(__dirname, 'src', 'pages', 'chat', 'index.html'),
       },
     },
  },

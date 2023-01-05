@@ -1,9 +1,9 @@
 import { Socket } from "socket.io-client";
 
-import { Message } from "../../../chat/dtos/Message";
-import { Room } from "../../../chat/dtos/Room";
-import { addMessagesAndDate } from "../../../chat/utils/add-messages-and-date";
-import { scrollToBottom } from "../../../chat/utils/scroll-to-bottom";
+import { Message } from "../../../pages/chat/dtos/Message";
+import { Room } from "../../../pages/chat/dtos/Room";
+import { addMessagesAndDate } from "../../../pages/chat/utils/add-messages-and-date";
+import { scrollToBottom } from "../../../pages/chat/utils/scroll-to-bottom";
 import { AppLocalStorage } from "../../../storage/app-local-storage";
 
 interface ChatHandlerRequest {
