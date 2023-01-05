@@ -12,13 +12,15 @@ div.content {
 
 aside {
   background-color: var(--bg-color-secondary);
-  border: 1px solid var(--border-color);
+  outline: 1px solid var(--border-color);
 
   display: flex;
   flex-direction: column;
 
+  min-width: 24rem;
   width: 24rem;
-  min-width: 22rem;
+
+  z-index: 5;
 }
 
 aside h3 {

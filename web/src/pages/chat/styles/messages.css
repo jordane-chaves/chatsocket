@@ -24,7 +24,7 @@ main header .info span:nth-child(2) {
 
 main footer {
   background-color: var(--bg-color-secondary);
-  outline: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 main footer form {
